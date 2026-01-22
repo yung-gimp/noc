@@ -41,8 +41,8 @@
     };
 
     ff = {
-      # url = "github:freedpom/FreedpomFlake";
-      url = "/home/codman/Documents/FreedpomFlake";
+      url = "github:freedpom/FreedpomFlake";
+      # url = "/home/codman/Documents/FreedpomFlake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -67,8 +67,8 @@
     };
 
     secrets = {
-      # url = "git+ssh://git@github.com/yung-gimp/nix-secrets";
-      url = "/home/codman/Documents/nix-secrets";
+      url = "git+ssh://git@github.com/yung-gimp/nix-secrets";
+      # url = "/home/codman/Documents/nix-secrets";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

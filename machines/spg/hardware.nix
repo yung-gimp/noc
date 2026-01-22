@@ -60,7 +60,7 @@
       sync.enable = lib.mkForce false;
     };
   };
-    ff.hardware.displays = {
+  freedpom.hardware.displays = {
     "eDP-1" = {
       includeKernelParams = true;
       resolution = {

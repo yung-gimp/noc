@@ -6,10 +6,8 @@
   ...
 }:
 {
-  ff = {
-    common.enable = true;
-
-    programs.hyprland.enable = true;
+  freedpom = {
+    windowManagers.hyprland.enable = true;
     services = {
       ananicy.enable = true;
       consoles = {
@@ -20,7 +18,6 @@
         ];
         kmscon = [ "tty2" ];
       };
-      # pipewire.enable = true;
     };
 
     system = {
@@ -31,30 +28,29 @@
         enable = true;
         preserveHome = true;
       };
-    };
-
-    userConfig = {
       users = {
-        codman = {
-          role = "admin";
-          tags = [ "base" ];
-          preservation.directories = [ ".local/share/PrismLauncher" ];
-          userOptions = {
-            uid = 1000;
-            hashedPasswordFile = config.age.secrets.password.path;
-            extraGroups = [
-              "libvirtd"
-              "dialout"
-            ];
+        users = {
+          codman = {
+            role = "admin";
+            tags = [ "base" ];
+            preservation.directories = [ ".local/share/PrismLauncher" ];
+            userOptions = {
+              uid = 1000;
+              hashedPasswordFile = config.age.secrets.password.path;
+              extraGroups = [
+                "libvirtd"
+                "dialout"
+              ];
+            };
           };
         };
       };
     };
+
   };
 
   cm.programs = {
     steam.enable = true;
-    # hyprland.enable = true;
   };
 
   networking.networkmanager.enable = true;
@@ -73,12 +69,12 @@
     home.stateVersion = "25.05";
     imports = [
       self.homeModules.codmod
-      inputs.ff.homeModules.ff
+      inputs.ff.homeModules.default
       inputs.ff.homeModules.windowManagers
     ];
 
-    ff = {
-      desktop.hypr.land.enable = true;
+    freedpom = {
+      windowManagers.hyprland.enable = true;
       programs.bash.enable = true;
     };
 
@@ -109,15 +105,6 @@
     };
   };
 
-  programs = {
-    uwsm.enable = true;
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
-    niri.enable = true;
-  };
-
   fonts = {
     fontconfig.defaultFonts.monospace = [ "BlexMono Nerd Font Mono" ];
     packages = with pkgs; [
@@ -130,7 +117,6 @@
   hardware.bluetooth.enable = true;
 
   services = {
-    tailscale.enable = true;
     flatpak.enable = true;
   };
 
@@ -149,7 +135,6 @@
 
   nixpkgs = {
     hostPlatform = "x86_64-linux";
-    overlays = [ inputs.niri.overlays.niri ];
     config = {
       allowUnfree = true;
       permittedInsecurePackages = [ "qtwebengine-5.15.19" ];
@@ -158,11 +143,9 @@
   system.stateVersion = "25.05";
 
   imports = [
-    inputs.ff.nixosModules.windowManagers
     inputs.secrets.nixosModules.spg
     inputs.agenix.nixosModules.default
     inputs.agenix-rekey.nixosModules.default
-    inputs.niri.nixosModules.niri
     ./disko.nix
     ./hardware.nix
     ./steam.nix

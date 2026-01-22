@@ -25,11 +25,21 @@ let
         ./${hostname}
         self.nixosModules.codmod
         inputs.home-manager.nixosModules.home-manager
-        inputs.ff.nixosModules.freedpomFlake
+        inputs.ff.nixosModules.default
+        inputs.ff.nixosModules.windowManagers
         inputs.ff.nixosModules.preservation
-        inputs.ff.nixosModules.home-manager
         inputs.preservation.nixosModules.preservation
         inputs.disko.nixosModules.disko
+        {
+          home-manager = {
+            backupFileExtension = "bk";
+            extraSpecialArgs = {
+              inherit inputs;
+            };
+            useGlobalPkgs = true;
+            useUserPackages = true;
+          };
+        }
       ];
     };
 in

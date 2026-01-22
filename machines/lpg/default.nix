@@ -7,12 +7,11 @@
   ...
 }:
 {
-  ff = {
-    common.enable = true;
-
+  freedpom = {
+    windowManagers.hyprland.enable = true;
     services = {
       ananicy.enable = true;
-      virt-reality = {
+      vr = {
         enable = true;
         bitrate = 150000000;
         autoStart = true;
@@ -26,7 +25,6 @@
         ];
         kmscon = [ "tty2" ];
       };
-      # pipewire.enable = true;
     };
 
     system = {
@@ -37,29 +35,27 @@
         enable = true;
         preserveHome = true;
       };
-    };
-
-    userConfig.users.codman = {
-      role = "admin";
-      tags = [ "base" ];
-      preservation.directories = [
-        ".local/share/Terraria"
-      ];
-      userOptions = {
-        uid = 1000;
-        hashedPasswordFile = config.age.secrets.password.path;
-        extraGroups = [
-          "podman"
-          "libvirtd"
-          "dialout"
+      users.users.codman = {
+        role = "admin";
+        tags = [ "base" ];
+        preservation.directories = [
+          ".local/share/Terraria"
         ];
+        userOptions = {
+          uid = 1000;
+          hashedPasswordFile = config.age.secrets.password.path;
+          extraGroups = [
+            "podman"
+            "libvirtd"
+            "dialout"
+          ];
+        };
       };
     };
   };
 
   cm.programs = {
     steam.enable = true;
-    hyprland.enable = true;
   };
 
   networking.networkmanager.enable = true;
@@ -85,10 +81,14 @@
     home.stateVersion = "25.05";
     imports = [
       self.homeModules.codmod
-      inputs.ff.homeModules.ff
+      inputs.ff.homeModules.default
+      inputs.ff.homeModules.windowManagers
     ];
 
-    ff.programs.bash.enable = true;
+    freedpom = {
+      programs.bash.enable = true;
+      windowManagers.hyprland.enable = true;
+    };
 
     cm = {
       hyprland.enable = true;
@@ -147,7 +147,6 @@
   hardware.nitrokey.enable = true;
 
   services = {
-    tailscale.enable = true;
     flatpak.enable = true;
   };
 
